@@ -19,5 +19,15 @@ pipeline {
              }
          }
         }
+        stage('Push to Dockerhub){
+              steps {
+                  script {
+                  docker.withRegistry('https://hub.docker.com/repositories/ahesmat','docker_hub_login'){
+                   myImage.push('latest')
+                   myImage.push('${env.BUILD_ID}')
+                                }             
+                  }
+              }
+              }
     }
 }
