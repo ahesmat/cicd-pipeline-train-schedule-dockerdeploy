@@ -8,5 +8,16 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/trainSchedule.zip'
             }
         }
+        stage('Build Docker Image')
+        {
+         steps {
+             script {
+                 def myImage = docker.build("ahesmat/myImage:latest")
+                 myImage.inside{
+                     sh 'curl localhost:/8080'
+                 }
+             }
+         }
+        }
     }
 }
