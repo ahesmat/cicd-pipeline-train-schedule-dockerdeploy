@@ -19,7 +19,7 @@ pipeline {
              }
          }
         }
-        stage('Push to Dockerhub){
+        stage('Push to Dockerhub'){
               steps {
                   script {
                   docker.withRegistry('https://hub.docker.com/repositories/ahesmat','docker_hub_login'){
