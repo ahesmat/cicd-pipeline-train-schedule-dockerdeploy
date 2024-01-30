@@ -14,7 +14,7 @@ pipeline {
              script {
                  def myImage = docker.build("ahesmat/myapp:latest")
                  myImage.inside{
-                     sh 'curl localhost:/8080'
+                     sh 'echo $(curl localhost:8080)'
                  }
              }
          }
