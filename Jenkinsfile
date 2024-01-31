@@ -54,6 +54,7 @@ pipeline {
                     catch(errory){
                         echo: 'Failed with error $errory'
                     }
+                   sh "sshpass -p '$PASSWORD' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker run --restart always --name train-schedule -p 8080:8080 -d username/reponame:build\"" 
                 }   
                           
                 }
