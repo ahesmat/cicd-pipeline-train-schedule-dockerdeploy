@@ -23,6 +23,9 @@ pipeline {
          }
         }
         stage('Push to Dockerhub'){
+            when {
+                branch 'master'
+            }
               steps {
                   script {
                   docker.withRegistry('https://registry.hub.docker.com/','docker_hub_login'){
@@ -39,6 +42,8 @@ pipeline {
                 branch 'master'
             }
             steps{
+                input(message: 'Are we good to go', ok: 'Deploy to production now')
+                milestone(1)
             withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 script{
                  sh "sshpass -p '$PASSWORD' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker run --name train-schedule -p 8080:8080 -d ahesmat/myapp:${env.BUILD_NUMBER}\""   
