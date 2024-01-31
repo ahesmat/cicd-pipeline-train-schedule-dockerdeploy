@@ -47,6 +47,13 @@ pipeline {
             withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 script{
                    sh "sshpass -p '$PASSWORD' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker pull ahesmat/myapp:${env.BUILD_NUMBER}\""
+                    try{
+                        sh "sshpass -p '$PASSWORD' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker stop train-schedule\""
+                        sh "sshpass -p '$PASSWORD' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker rm train-schedule\"" 
+                    }
+                    catch(errory){
+                        echo: 'Failed with error $errory'
+                    }
                 }   
                           
                 }
