@@ -33,5 +33,19 @@ pipeline {
                   }
               }
               }
+        stage('Deploy to Production')
+        {
+            when {
+                branch 'master
+            }
+            withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                script{
+                 sh "sshpass -p '$PASSWORD' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip}\
+                    "
+                 docker run --name train-schedule -p 8080:8080 -d ahesmat/myapp:${env.BUILD_NUMBER}\  
+                    ""   
+                }
+            }
+        }
     }
 }
