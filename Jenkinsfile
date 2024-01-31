@@ -46,9 +46,8 @@ pipeline {
                 milestone(1)
             withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 script{
-                 sh "sshpass -p '$PASSWORD' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker pull ahesmat/myapp:${env.BUILD_NUMBER}\""   
-                 
-            }
+                 sh "sshpass -p '$PASSWORD' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"docker pull ahesmat/myapp:${env.BUILD_NUMBER}\""         
+                }
         }
         }
     }
