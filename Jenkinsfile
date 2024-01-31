@@ -24,6 +24,7 @@ pipeline {
                   script {
                   docker.withRegistry('https://registry.hub.docker.com/','docker_hub_login'){
                    myImage.push('latest')
+                   myImage.push('${env.build_number}')   
                    
                                 }             
                   }
