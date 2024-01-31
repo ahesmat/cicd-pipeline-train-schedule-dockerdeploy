@@ -36,7 +36,7 @@ pipeline {
         stage('Deploy to Production')
         {
             when {
-                branch 'master
+                branch 'master'
             }
             withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                 script{
