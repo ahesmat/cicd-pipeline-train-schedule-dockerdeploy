@@ -10,6 +10,9 @@ pipeline {
         }
         stage('Build Docker Image')
         {
+            when {
+                branch 'master'
+            }
          steps {
              script {
                  myImage = docker.build("ahesmat/myapp:latest")
